@@ -6,6 +6,7 @@ The application allows adding accounts, top-up balance and transfer fund between
 
 ## API
 [API documentations](doc.apib)
+[and here](https://coins11.docs.apiary.io/#)
 
 ### Assumptions
 
@@ -113,7 +114,7 @@ returns
 ```
 * check list of transactions
 ```
-curl -X GET http://127.0.0.1/payment/v1/transactions/5
+curl -X GET http://127.0.0.1/payment/v1/transactions/1
 ```
 returns
 ```
