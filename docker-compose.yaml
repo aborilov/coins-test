@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+
+  api-database:
+    image: postgres
+    environment:
+      POSTGRES_USER: "server"
+      POSTGRES_PASSWORD: "server"
+      POSTGRES_DB: "server"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "server"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - ./migrations/bootstrap.sql:/docker-entrypoint-initdb.d/bootstrap.sql
+    restart: on-failure
+
+  api:
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      environment:
+        PG_URI: "postgres://server:server@api-database:5432/server?sslmode=disable"
+      depends_on:
+        - api-database
+      restart: on-failure
+      ports:
+        - "80:80/tcp"

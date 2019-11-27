@@ -1,0 +1,3 @@
+CREATE TABLE account (id SERIAL PRIMARY KEY,first_name VARCHAR(50), last_name VARCHAR(50));
+CREATE TABLE transaction (id SERIAL PRIMARY KEY, "from" BIGINT, "to" BIGINT, amount FLOAT, DATE TIMESTAMP NOT NULL);
+CREATE TABLE balance (account_id BIGINT PRIMARY KEY, balance FLOAT);

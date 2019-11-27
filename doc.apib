@@ -1,0 +1,161 @@
+FORMAT: 1A
+
+# Coins API
+
+## Get Balance [/payment/v1/balance/{id}]
+
+### GET
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (Balance)
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "account with ID 1 not found"
+            }
+
+## List transactions [/payment/v1/transactions/{id}]
+
+### GET
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (array[Transaction])
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "account with ID 1 not found"
+            }
+
+
+## Make transfer [/payment/v1/transfer]
+
+### POST
+
++ Request (application/json)
+
+    + Attributes(Transfer)
+
++ Response 200 (application/json)
+
+    + Attributes (Transaction)
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "account with ID 1 not found"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "error": "insufficient funds, account with ID 1"
+            }
+
+
+## TopUp balance [/payment/v1/topup]
+
+### POST
+
++ Request (application/json)
+
+    + Attributes(Balance)
+
++ Response 200 (application/json)
+
+    + Attributes (Balance)
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "account with ID 1 not found"
+            }
+
+
+## List and Create Account [/account/v1/]
+
+### GET
+
+List Accounts
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (array[Account])
+
+### POST
+
+Add new account
+
++ Request (application/json)
+
+    + Attributes(Account POST)
+
++ Response 201 (application/json)
+
+    + Attributes (Account)
+
+
+## Get Account [/account/v1/{id}]
+
++ Parameters
+  + id (number, required) - account ID
+
+### GET
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (Account)
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "account with ID 1 not found"
+            }
+
+# Data Structures
+
+## Account(Account POST)
+ + id: 1 (number, required) - account ID
+
+## Account POST
+ + first_name: `First Name` (string, required) - first name
+ + last_name: `Last Name` (string, required) - last name
+
+## Balance
+ + account_id: 1 (number, required) - account ID
+ + balance: 1.4 (number, required) - balance
+
+## Transaction
+ + id: 1234 (number, required) - transaction ID
+ + from: 1 (number, required) - source account ID
+ + to: 2 (number, required) - destinations account ID
+ + amount: 1.4 (number, required) - amount to send
+ + date: `2019-11-27T06:03:52.275036Z` (string, required) - date of transaction
+
+## Transfer
+ + from: 1 (number, required) - source account ID
+ + to: 2 (number, required) - destinations account ID
+ + amount: 1.4 (number, required) - amount to send
